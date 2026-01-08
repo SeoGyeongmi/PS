@@ -6,7 +6,6 @@ typedef struct {
 } Point;
 
 int map[8][8];
-// visited 배열은 사실 필요 없습니다. map 값만 1로 바꿨다 0으로 되돌리면 되니까요.
 int saveArea_max = 0;
 int N, M; // N: 세로, M: 가로
 
@@ -21,7 +20,6 @@ void spreadVirus() {
     // 맵 복사
     memcpy(cpmap, map, sizeof(map));
 
-    // 바이러스(2) 찾아서 큐에 넣기
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < M; j++) {
             if (cpmap[i][j] == 2) {
@@ -53,8 +51,8 @@ void spreadVirus() {
 
     // 안전 영역 세기
     int safeArea = 0;
-    for (int i = 0; i < N; i++) {     // [수정4] i < N (세로)
-        for (int j = 0; j < M; j++) { // [수정3] j++ 로 수정, j < M (가로)
+    for (int i = 0; i < N; i++) {    
+        for (int j = 0; j < M; j++) { 
             if (cpmap[i][j] == 0) {
                 safeArea++;
             }
@@ -65,8 +63,6 @@ void spreadVirus() {
         saveArea_max = safeArea;
 }
 
-// [수정1] 벽 세우기 로직 전체 변경
-// DFS지만 인접한 곳이 아니라 '전체 맵'에서 빈칸을 찾습니다.
 void generateWall(int count) {
     if (count == 3) {
         spreadVirus();
@@ -79,14 +75,14 @@ void generateWall(int count) {
             if (map[i][j] == 0) {
                 map[i][j] = 1;         // 벽 세우기
                 generateWall(count + 1); // 다음 벽 세우러 가기
-                map[i][j] = 0;         // (백트래킹) 벽 허물기
+                map[i][j] = 0;         //  벽 허물기
             }
         }
     }
 }
 
 int main() {
-    scanf("%d %d", &N, &M); // [수정4] N, M 순서 맞춤
+    scanf("%d %d", &N, &M); 
 
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < M; j++) {
