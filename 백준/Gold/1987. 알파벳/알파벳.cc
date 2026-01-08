@@ -11,7 +11,7 @@ int dy[4] = {-1, 1, 0, 0};
 int dx[4] = {0, 0, -1, 1};
 
 void dfs(int y, int x, int count) {
-    // 1. 현재까지의 기록(count)과 최대값(ans) 비교해서 갱신
+    
     if (count > ans) ans = count;
 
     for (int i = 0; i < 4; i++) {
